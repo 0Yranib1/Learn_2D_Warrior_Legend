@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 1008032566}
   - component: {fileID: 1008032565}
   - component: {fileID: 1008032564}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2298,6 +2298,7 @@ GameObject:
   - component: {fileID: 1084703535}
   - component: {fileID: 1084703534}
   - component: {fileID: 1084703536}
+  - component: {fileID: 1084703537}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2422,8 +2423,8 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_GravityScale: 4
+  m_Material: {fileID: 6200000, guid: 3aeb48eb16d081a43b040a611340dee2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2448,6 +2449,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputDirection: {x: 0, y: 0}
   speed: 290
+  jumpForce: 16.5
+--- !u!114 &1084703537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084703531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5ce190e1139e342b57b7fd9f9ef923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGround: 0
+  checkRaduis: 0.08
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  bottomOffset: {x: -0.05, y: 0}
 --- !u!1 &1168191134
 GameObject:
   m_ObjectHideFlags: 0

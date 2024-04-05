@@ -2,19 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     public PlayerInputControl InputControl;
     private Rigidbody2D rb;
+    private PhysicsCheck physicsCheck;
     private SpriteRenderer spriteRenderer;
     public Vector2 inputDirection;
+    [Header("基本参数")]
     public float speed;
+    public float jumpForce;
     private void Awake()
     {
         InputControl = new PlayerInputControl();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        InputControl.Gameplay.Jump.started += Jump;
+        physicsCheck = GetComponent<PhysicsCheck>();
     }
 
     private void OnEnable()
@@ -53,5 +59,14 @@ public class PlayerController : MonoBehaviour
         {
             spriteRenderer.flipX = inputDirection.x > 0 ? false : true;
         }
+    }
+
+    private void Jump(InputAction.CallbackContext obj)
+    {
+        if (physicsCheck.isGround)
+        {
+            rb.AddForce(transform.up*jumpForce,ForceMode2D.Impulse);
+        }
+
     }
 }
