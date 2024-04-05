@@ -2447,6 +2447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputDirection: {x: 0, y: 0}
+  speed: 290
 --- !u!1 &1168191134
 GameObject:
   m_ObjectHideFlags: 0
