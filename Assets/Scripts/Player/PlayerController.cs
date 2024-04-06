@@ -106,7 +106,6 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
     private void RunStatsChenge(InputAction.CallbackContext obj)
     {
         if (physicsCheck.isGround)
@@ -121,4 +120,5 @@ public class PlayerController : MonoBehaviour
             speed = walkSpeed;
         }
     }
+    
 }
