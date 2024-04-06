@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public Vector2 inputDirection;
     [Header("基本参数")]
     public float speed;
+    private float runSpeed;
+    private float walkSpeed;
     public float jumpForce;
     private void Awake()
     {
@@ -20,7 +22,11 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         InputControl.Gameplay.Jump.started += Jump;
+        InputControl.Gameplay.RunButton.performed += RunStatsChenge;
+        InputControl.Gameplay.RunButton.canceled += WalkStatsChenge;
         physicsCheck = GetComponent<PhysicsCheck>();
+        runSpeed = speed*3f;
+        walkSpeed = speed;
     }
 
     private void OnEnable()
@@ -68,5 +74,20 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(transform.up*jumpForce,ForceMode2D.Impulse);
         }
 
+    }
+
+    private void RunStatsChenge(InputAction.CallbackContext obj)
+    {
+        if (physicsCheck.isGround)
+        {
+            speed = runSpeed;
+        }
+    }
+    private void WalkStatsChenge(InputAction.CallbackContext obj)
+    {
+        if (physicsCheck.isGround)
+        {
+            speed = walkSpeed;
+        }
     }
 }
