@@ -2509,6 +2509,7 @@ MonoBehaviour:
   inputDirection: {x: 0, y: 0}
   speed: 100
   jumpForce: 16.5
+  isCrouch: 0
 --- !u!114 &1084703537
 MonoBehaviour:
   m_ObjectHideFlags: 0
