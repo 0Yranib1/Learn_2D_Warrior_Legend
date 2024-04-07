@@ -19,8 +19,10 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private Vector2 originalOffeset;
     private Vector2 originalSize;
-
     public bool isCrouch = false;
+    public bool isHurt;
+    public float hurtForce;
+    public bool isDead;
     private void Awake()
     {
         InputControl = new PlayerInputControl();
@@ -67,7 +69,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (!isHurt)
+        {
+            Move();
+        }
     }
 
     public void Move()
@@ -120,5 +125,18 @@ public class PlayerController : MonoBehaviour
             speed = walkSpeed;
         }
     }
-    
+
+    public void GetHurt(Transform attacker)
+    {
+        isHurt = true;
+        rb.velocity = Vector2.zero;
+        Vector2 dir = new Vector2(transform.position.x - attacker.position.x, 0).normalized;
+        rb.AddForce(dir*hurtForce,ForceMode2D.Impulse);
+    }
+
+    public void playerDead()
+    {
+        isDead = true;
+        InputControl.Gameplay.Disable();
+    }
 }

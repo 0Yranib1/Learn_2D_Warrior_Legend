@@ -29,5 +29,11 @@ public class PlayerAnimation : MonoBehaviour
         anim.SetBool("isGround",physicsCheck.isGround);
         anim.SetFloat("velocityY",rb.velocity.y);
         anim.SetBool("isCrouch",playerController.isCrouch);
+        anim.SetBool("isDead",playerController.isDead);
+    }
+
+    public void GetHurt()
+    {
+        anim.SetTrigger("hurt");
     }
 }

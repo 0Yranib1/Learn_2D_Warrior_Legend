@@ -2361,7 +2361,7 @@ GameObject:
   - component: {fileID: 1084703541}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2511,6 +2511,9 @@ MonoBehaviour:
   speed: 100
   jumpForce: 16.5
   isCrouch: 0
+  isHurt: 0
+  hurtForce: 5
+  isDead: 0
 --- !u!114 &1084703537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2577,6 +2580,48 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   invulnerableDuration: 3.5
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1084703540}
+        m_TargetAssemblyTypeName: PlayerAnimation, Assembly-CSharp
+        m_MethodName: GetHurt
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1084703536}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: GetHurt
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDie:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1084703536}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: playerDead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1168191134
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,8 +3422,8 @@ GameObject:
   - component: {fileID: 1710658640}
   - component: {fileID: 1710658639}
   - component: {fileID: 1710658645}
-  - component: {fileID: 1710658644}
   - component: {fileID: 1710658643}
+  - component: {fileID: 1710658646}
   m_Layer: 8
   m_Name: Boar
   m_TagString: Untagged
@@ -3537,24 +3582,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a6d5fb7fd1a174bbf12f1b730499ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 20
   currentHealth: 0
   invulnerableDuration: 0
---- !u!114 &1710658644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1710658638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 740976f72f4283b499774dcc8dd0d7b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 5
-  attackRange: 0
-  attackRate: 0
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDie:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!70 &1710658645
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3590,6 +3626,21 @@ CapsuleCollider2D:
   m_Offset: {x: -0.1513089, y: 0.64012456}
   m_Size: {x: 1.8794903, y: 1.2802552}
   m_Direction: 1
+--- !u!114 &1710658646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710658638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740976f72f4283b499774dcc8dd0d7b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  attackRange: 0
+  attackRate: 0
 --- !u!1 &1882269796
 GameObject:
   m_ObjectHideFlags: 0
