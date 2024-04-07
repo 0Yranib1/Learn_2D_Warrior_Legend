@@ -30,10 +30,16 @@ public class PlayerAnimation : MonoBehaviour
         anim.SetFloat("velocityY",rb.velocity.y);
         anim.SetBool("isCrouch",playerController.isCrouch);
         anim.SetBool("isDead",playerController.isDead);
+        anim.SetBool("isAttack",playerController.isAttack);
     }
 
     public void GetHurt()
     {
         anim.SetTrigger("hurt");
+    }
+
+    public void PlayerAttack()
+    {
+        anim.SetTrigger("attack");
     }
 }

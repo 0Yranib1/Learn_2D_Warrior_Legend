@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public Vector2 inputDirection;
     private CapsuleCollider2D coll;
+    private PlayerAnimation playerAnimation;
     [Header("基本参数")]
     public float speed;
     private float runSpeed;
@@ -19,15 +20,18 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private Vector2 originalOffeset;
     private Vector2 originalSize;
+    [Header("状态")]
     public bool isCrouch = false;
     public bool isHurt;
     public float hurtForce;
     public bool isDead;
+    public bool isAttack;
     private void Awake()
     {
         InputControl = new PlayerInputControl();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerAnimation = GetComponent<PlayerAnimation>();
         
         coll = GetComponent<CapsuleCollider2D>();
         originalOffeset = coll.offset;
@@ -36,7 +40,7 @@ public class PlayerController : MonoBehaviour
         InputControl.Gameplay.Jump.started += Jump;
         InputControl.Gameplay.RunButton.performed += RunStatsChenge;
         InputControl.Gameplay.RunButton.canceled += WalkStatsChenge;
-        
+        InputControl.Gameplay.Attack.started += PlayerAttack;   
         physicsCheck = GetComponent<PhysicsCheck>();
         
         runSpeed = speed*3f;
@@ -126,6 +130,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void PlayerAttack(InputAction.CallbackContext obj)
+    {
+        playerAnimation.PlayerAttack();
+        isAttack = true;
+    }
     public void GetHurt(Transform attacker)
     {
         isHurt = true;
