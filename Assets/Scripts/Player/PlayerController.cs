@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     public Vector2 inputDirection;
     private CapsuleCollider2D coll;
     private PlayerAnimation playerAnimation;
+    [Header("物理材质")] 
+    public PhysicsMaterial2D normal;
+    public PhysicsMaterial2D wall;
     [Header("基本参数")]
     public float speed;
     private float runSpeed;
@@ -68,12 +71,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         inputDirection = InputControl.Gameplay.Move.ReadValue<Vector2>();
+        CheckState();
         
     }
 
     private void FixedUpdate()
     {
-        if (!isHurt)
+        if (!isHurt && !isAttack)
         {
             Move();
         }
@@ -82,7 +86,7 @@ public class PlayerController : MonoBehaviour
     public void Move()
     {
         //移动
-        if (!isCrouch)
+        if (!isCrouch )
         {
             rb.velocity = new Vector2(inputDirection.x * speed * Time.deltaTime,rb.velocity.y);
         }
@@ -147,5 +151,10 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         InputControl.Gameplay.Disable();
+    }
+
+    private void CheckState()
+    {
+        coll.sharedMaterial = physicsCheck.isGround ? normal : wall;
     }
 }
