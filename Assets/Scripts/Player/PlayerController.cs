@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public PlayerInputControl InputControl;
     private Rigidbody2D rb;
     private PhysicsCheck physicsCheck;
-    private SpriteRenderer spriteRenderer;
     public Vector2 inputDirection;
     private CapsuleCollider2D coll;
     private PlayerAnimation playerAnimation;
@@ -29,11 +28,11 @@ public class PlayerController : MonoBehaviour
     public float hurtForce;
     public bool isDead;
     public bool isAttack;
+    private int faceDirection=1;
     private void Awake()
     {
         InputControl = new PlayerInputControl();
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         playerAnimation = GetComponent<PlayerAnimation>();
         
         coll = GetComponent<CapsuleCollider2D>();
@@ -91,10 +90,13 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(inputDirection.x * speed * Time.deltaTime,rb.velocity.y);
         }
 
-        if (inputDirection.x != 0)
-        {
-            spriteRenderer.flipX = inputDirection.x > 0 ? false : true;
-        }
+        if (inputDirection.x > 0)
+            faceDirection = 1;
+        if (inputDirection.x < 0)
+            faceDirection = -1;
+        
+        transform.localScale = new Vector3(faceDirection, 1, 1);
+        
         //下蹲
         isCrouch = inputDirection.y < -0.5f && physicsCheck.isGround;
         if (isCrouch)
