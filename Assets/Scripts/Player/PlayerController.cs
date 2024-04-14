@@ -130,14 +130,15 @@ public class PlayerController : MonoBehaviour
     }
     private void WalkStatsChenge(InputAction.CallbackContext obj)
     {
-        if (physicsCheck.isGround)
-        {
+        // if (physicsCheck.isGround)
             speed = walkSpeed;
-        }
     }
 
     private void PlayerAttack(InputAction.CallbackContext obj)
     {
+        //控制不可跳跃攻击
+        // if(!physicsCheck.isGround)
+        //     return;
         playerAnimation.PlayerAttack();
         isAttack = true;
     }

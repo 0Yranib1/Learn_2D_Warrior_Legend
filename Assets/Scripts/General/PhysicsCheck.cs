@@ -39,8 +39,8 @@ public class PhysicsCheck : MonoBehaviour
     {
         //检测地面
         isGround= Physics2D.OverlapCircle((Vector2)transform.position+ new Vector2(bottomOffset.x*transform.localScale.x,bottomOffset.y), checkRaduis, groundLayer);
-        touchLeftWall=Physics2D.OverlapCircle((Vector2)transform.position+new Vector2(leftOffset.x*transform.localScale.x,leftOffset.y), checkRaduis, groundLayer);
-        touchRightWall=Physics2D.OverlapCircle((Vector2)transform.position+new Vector2(rightOffset.x*transform.localScale.x,rightOffset.y), checkRaduis, groundLayer);
+        touchLeftWall= Physics2D.OverlapCircle((Vector2)transform.position+new Vector2(leftOffset.x,leftOffset.y), checkRaduis, groundLayer);
+        touchRightWall=Physics2D.OverlapCircle((Vector2)transform.position+new Vector2(rightOffset.x,rightOffset.y), checkRaduis, groundLayer);
     }
 
     private void OnDrawGizmosSelected()

@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
     [Header("基本属性")] 
     public float maxHealth;
     public float currentHealth;
+    [Header("无敌时间")]
     public float invulnerableDuration;
     private float invulnerableCounter;
     private bool invulnerable;
