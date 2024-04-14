@@ -3604,6 +3604,14 @@ MonoBehaviour:
   waitTime: 2
   waitTimeCounter: 0
   wait: 0
+  lostTime: 3
+  lostTimeCounter: 0
+  centerOffset: {x: 0, y: 0.65}
+  checkSize: {x: 1, y: 1}
+  checkDistance: 4.5
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 128
   isHurt: 0
   isDead: 0
 --- !u!95 &1710658648

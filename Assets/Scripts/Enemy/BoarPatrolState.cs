@@ -7,13 +7,17 @@ public class BoarPatrolState : BaseState
     public override void OnEnter(Enemy enemy)
     {
         currentEnemy = enemy;
-        
+        currentEnemy.currentSpeed = currentEnemy.normalSpeed;
+
     }
 
     public override void LogicUpdate()
     {
         //发现玩家进入到追击状态
-        
+        if (currentEnemy.FoundPlayer())
+        {
+            currentEnemy.SwitchState(Enums.NPCState.Chase);
+        }
         //巡逻
         if (!currentEnemy.physicsCheck.isGround || (currentEnemy.physicsCheck.touchLeftWall && currentEnemy.faceDir.x < 0 ||
              currentEnemy.physicsCheck.touchRightWall && currentEnemy.faceDir.x > 0))
