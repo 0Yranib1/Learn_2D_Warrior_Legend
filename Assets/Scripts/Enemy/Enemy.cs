@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D),typeof(Animator),typeof(PhysicsCheck))]
 public class Enemy : MonoBehaviour
 {
-    protected Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Animator anim;
     [HideInInspector] public PhysicsCheck physicsCheck;
     [Header("基本参数")] 
@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     public Vector3 faceDir;
     public Transform attacker;
     public float hurtForce;
+    protected Vector3 spwanPoint;
     [Header("计时器")] 
     public float waitTime;
     [HideInInspector] public float waitTimeCounter;
@@ -41,6 +42,7 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
         physicsCheck = GetComponent<PhysicsCheck>();
         currentSpeed = normalSpeed;
+        spwanPoint = transform.position;
     }
 
     private void OnEnable()
@@ -109,7 +111,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public bool FoundPlayer()
+    public virtual bool FoundPlayer()
     {
         return Physics2D.BoxCast(transform.position + (Vector3)centerOffset, checkSize, 0, faceDir, checkDistance,
             attackLayer);
@@ -136,6 +138,11 @@ public class Enemy : MonoBehaviour
         currentState.OnExit();
         currentState = newState;
         currentState.OnEnter(this);
+    }
+
+    public virtual Vector3 GetNewPoint()
+    {
+        return transform.position;
     }
     
     #region 事件执行方法
@@ -182,7 +189,7 @@ public class Enemy : MonoBehaviour
     
     #endregion
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position+(Vector3)centerOffset+new Vector3(checkDistance*-transform.localScale.x,0,0),0.2f);
     }
