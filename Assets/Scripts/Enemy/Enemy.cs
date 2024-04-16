@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public float waitTimeCounter;
     public bool wait;
     public float lostTime;
-    [HideInInspector] public float lostTimeCounter;
+     public float lostTimeCounter;
     [Header("检测")] 
     public Vector2 centerOffset;
     public Vector2 checkSize;
@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     private BaseState currentState;
     protected BaseState chaseState;
     protected BaseState patrolState;
+    protected BaseState skillState;
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -78,7 +79,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void Move()
     {
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("snailPreMove"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("snailPreMove") && !anim.GetCurrentAnimatorStateInfo(0).IsName("snailRecover"))
         {
             rb.velocity = new Vector2(currentSpeed * faceDir.x * Time.deltaTime, rb.velocity.y);
         }
@@ -124,6 +125,9 @@ public class Enemy : MonoBehaviour
                 break;
             case Enums.NPCState.Patrol:
                 newState = patrolState;
+                break;
+            case Enums.NPCState.Skill:
+                newState = skillState;
                 break;
             default:
                 newState = null;

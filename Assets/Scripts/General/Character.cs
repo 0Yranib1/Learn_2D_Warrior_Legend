@@ -11,8 +11,8 @@ public class Character : MonoBehaviour
     public float currentHealth;
     [Header("无敌时间")]
     public float invulnerableDuration;
-    private float invulnerableCounter;
-    private bool invulnerable;
+    public float invulnerableCounter;
+    public bool invulnerable;
         
     public UnityEvent<Transform> OnTakeDamage;
     public UnityEvent OnDie;
