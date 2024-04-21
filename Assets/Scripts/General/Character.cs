@@ -16,9 +16,12 @@ public class Character : MonoBehaviour
         
     public UnityEvent<Transform> OnTakeDamage;
     public UnityEvent OnDie;
+
+    public UnityEvent<Character> OnHealthChange;
     private void Start()
     {
         currentHealth = maxHealth;
+        OnHealthChange?.Invoke(this);
     }
 
     private void Update()
@@ -47,6 +50,7 @@ public class Character : MonoBehaviour
             TriggerInvulnerable();
             //受伤
             OnTakeDamage?.Invoke(attacker.transform);
+
         }
         else
         {
@@ -54,6 +58,7 @@ public class Character : MonoBehaviour
             //死亡
             OnDie?.Invoke();
         }
+        OnHealthChange?.Invoke(this);
     }
 
     //无敌时间计算
