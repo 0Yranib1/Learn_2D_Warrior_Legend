@@ -6,6 +6,8 @@ using UnityEngine;
 public class PhysicsCheck : MonoBehaviour
 {
     private CapsuleCollider2D coll;
+    private PlayerController _playerController;
+    private Rigidbody2D rb;
     [Header("状态")]
     public bool isGround;
 
@@ -14,11 +16,13 @@ public class PhysicsCheck : MonoBehaviour
 
     [Header("检测参数")] 
     public bool manual;
+    public bool isPlayer;
     public float checkRaduis;
     public LayerMask groundLayer;
     public Vector2 bottomOffset;
     public Vector2 leftOffset;
     public Vector2 rightOffset;
+    public bool onWall;
 
     private void Awake()
     {
@@ -27,6 +31,12 @@ public class PhysicsCheck : MonoBehaviour
         {
             rightOffset = new Vector2((coll.bounds.size.x + coll.offset.x) / 2, coll.bounds.size.y / 2);
             leftOffset = new Vector2(-rightOffset.x,rightOffset.y);
+        }
+
+        if (isPlayer)
+        {
+            _playerController = GetComponent<PlayerController>();
+            rb = GetComponent<Rigidbody2D>();
         }
     }
 
@@ -38,9 +48,25 @@ public class PhysicsCheck : MonoBehaviour
     public void Check()
     {
         //检测地面
-        isGround= Physics2D.OverlapCircle((Vector2)transform.position+ new Vector2(bottomOffset.x*transform.localScale.x,bottomOffset.y), checkRaduis, groundLayer);
+        if (onWall)
+        {
+            isGround= Physics2D.OverlapCircle((Vector2)transform.position+ new Vector2(bottomOffset.x*transform.localScale.x,bottomOffset.y), checkRaduis, groundLayer);
+        }
+        else
+        {
+            isGround= Physics2D.OverlapCircle((Vector2)transform.position+ new Vector2(bottomOffset.x*transform.localScale.x,0), checkRaduis, groundLayer);
+        }
+        
+        //墙体判断
         touchLeftWall= Physics2D.OverlapCircle((Vector2)transform.position+new Vector2(leftOffset.x,leftOffset.y), checkRaduis, groundLayer);
         touchRightWall=Physics2D.OverlapCircle((Vector2)transform.position+new Vector2(rightOffset.x,rightOffset.y), checkRaduis, groundLayer);
+        //在墙壁上
+        if (isPlayer)
+        {
+            onWall = (touchLeftWall && _playerController.inputDirection.x<0f || touchRightWall && _playerController.inputDirection.x>0f) && rb.velocity.y<0f;
+        }
+
+
     }
 
     private void OnDrawGizmosSelected()
